@@ -1,1 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
+  <meta name="description" content="Use this free random generator to pick names, shuffle lists, select winners, create teams and make decisions instantly.">
+  <meta name="google-site-verification" content="wqDVEHvuQ14lzMtLiEWIOLE-gQHNpV_k75GhLLfVGdA" />
+  <meta name="monetag" content="69de0ae2199d8d09cd14dbb19b0f01a7">
+  <title>Universal Random Generator & Decision Picker</title>
 
+  <script>
+    (function(s){s.dataset.zone='12196498',s.src='https://nap5k.com'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
+  </script>
+
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --panel: #12121b;
+      --panel-light: #191923;
+      --border: rgba(255,255,255,.09);
+      --text: #f5f5f7;
+      --muted: #a1a1aa;
+      --accent: #f59e0b;
+      --accent-light: #fbbf24;
+      --accent-dark: #b45309;
+      --success: #34d399;
+      --danger: #fb7185;
+      --radius: 20px;
+      --shadow: 0 18px 55px rgba(0,0,0,.32);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 12% 0%, rgba(245,158,11,.10), transparent 32%),
+        radial-gradient(ellipse at 90% 35%, rgba(180,83,9,.07), transparent 30%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    button, input, textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 23px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 17px;
+      font-weight: 850;
+      letter-spacing: -.5px;
+    }
+
+    .brand-mark {
+      width: 37px;
+      height: 37px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #17120a;
+      background: linear-gradient(135deg, var(--accent-light), var(--accent-dark));
+      box-shadow: 0 0 25px rgba(245,158,11,.25);
+      font-size: 20px;
+    }
+
+    .top-label {
+      color: var(--muted);
+      font-size: 12px;
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: 30px;
+      white-space: nowrap;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 65px 0 35px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 17px;
+      color: var(--accent-light);
+      background: rgba(245,158,11,.09);
+      border: 1px solid rgba(245,158,11,.2);
+      border-radius: 30px;
+      padding: 7px 13px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    h1 {
+      max-width: 850px;
+      margin: 0 auto 17px;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -2.3px;
+      font-weight: 900;
+    }
+
+    .gradient-text {
+      color: var(--accent-light);
+      background: linear-gradient(90deg, #fbbf24, #f59e0b, #fcd34d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      max-width: 690px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .tool-section {
+      padding: 15px 0 35px;
+    }
+
+    .tool-card {
+      position: relative;
+      padding: clamp(19px, 4vw, 34px);
+      overflow: hidden;
+      border: 1px solid rgba(245,158,11,.19);
+      border-radius: 25px;
+      background: linear-gradient(145deg, rgba(25,25,35,.98), rgba(15,15,23,.98));
+      box-shadow: var(--shadow), 0 0 45px rgba(245,158,11,.045);
+    }
+
+    .tool-card::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      top: -190px;
+      right: -70px;
+      background: rgba(245,158,11,.11);
+      filter: blur(65px);
+      pointer-events: none;
+    }
+
+    .tool-heading {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 23px;
+    }
+
+    .tool-heading h2 {
+      font-size: 20px;
+      letter-spacing: -.5px;
+    }
+
+    .live-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--success);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+    }
+
+    .live-status span {
+      width: 7px;
+      height: 7px;
+      background: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(52,211,153,.8);
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 19px;
+    }
+
+    .input-group label,
+    .field-label {
+      display: block;
+      margin-bottom: 9px;
+      color: #e4e4e7;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    textarea,
+    input[type="number"] {
+      width: 100%;
+      color: var(--text);
+      outline: none;
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(5,5,10,.55);
+      border-radius: 13px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    textarea {
+      display: block;
+      min-height: 190px;
+      padding: 16px;
+      resize: vertical;
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    textarea::placeholder,
+    input::placeholder {
+      color: #62626d;
+    }
+
+    textarea:focus,
+    input[type="number"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(245,158,11,.11);
+    }
+
+    .input-hint {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 8px;
+      color: #777782;
+      font-size: 11px;
+    }
+
+    .settings-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .setting-box {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: rgba(255,255,255,.025);
+    }
+
+    input[type="number"] {
+      height: 46px;
+      padding: 0 12px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .setting-note {
+      margin-top: 7px;
+      color: #777782;
+      font-size: 10px;
+    }
+
+    .option-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      margin: 4px 0 23px;
+    }
+
+    .check-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #c4c4cc;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .check-option input {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--accent);
+    }
+
+    .primary-button {
+      width: 100%;
+      min-height: 59px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 11px;
+      border: 0;
+      border-radius: 14px;
+      color: #171006;
+      background: linear-gradient(110deg, #fbbf24, #f59e0b 55%, #d97706);
+      box-shadow: 0 9px 28px rgba(245,158,11,.22);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      transition: transform .2s, box-shadow .2s, filter .2s;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.07);
+      box-shadow: 0 13px 35px rgba(245,158,11,.32);
+    }
+
+    .primary-button:active {
+      transform: translateY(0);
+    }
+
+    .primary-button:focus-visible,
+    .secondary-button:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--accent-light);
+      outline-offset: 3px;
+    }
+
+    .error-message {
+      display: none;
+      margin-top: 13px;
+      padding: 11px 13px;
+      color: #fecdd3;
+      border: 1px solid rgba(251,113,133,.25);
+      border-radius: 10px;
+      background: rgba(251,113,133,.08);
+      font-size: 12px;
+    }
+
+    .error-message.visible {
+      display: block;
+    }
+
+    .result-panel {
+      margin-top: 23px;
+      padding: 20px;
+      border: 1px solid rgba(245,158,11,.22);
+      border-radius: 16px;
+      background: rgba(245,158,11,.045);
+      min-height: 120px;
+    }
+
+    .result-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 13px;
+    }
+
+    .result-title {
+      color: var(--accent-light);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .9px;
+      text-transform: uppercase;
+    }
+
+    .result-count {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .result-output {
+      display: grid;
+      gap: 9px;
+      min-height: 48px;
+    }
+
+    .result-placeholder {
+      color: #777782;
+      font-size: 13px;
+    }
+
+    .result-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 13px;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 11px;
+      background: rgba(0,0,0,.24);
+      overflow-wrap: anywhere;
+      animation: appear .28s ease both;
+    }
+
+    .result-number {
+      flex: 0 0 27px;
+      width: 27px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #1c1305;
+      background: var(--accent);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .result-value {
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 15px;
+    }
+
+    .secondary-button {
+      padding: 9px 13px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 9px;
+      color: #e4e4e7;
+      background: rgba(255,255,255,.055);
+      font-size: 11px;
+      font-weight: 750;
+      transition: background .2s, border-color .2s;
+    }
+
+    .secondary-button:hover {
+      border-color: rgba(245,158,11,.45);
+      background: rgba(245,158,11,.1);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin: 20px 0 35px;
+    }
+
+    .feature {
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .feature-icon {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      color: var(--accent-light);
+      background: rgba(245,158,11,.1);
+      font-size: 17px;
+    }
+
+    .feature h3 {
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.65;
+    }
+
+    .content-section {
+      padding: 24px 0;
+    }
+
+    .section-title {
+      margin-bottom: 12px;
+      font-size: clamp(22px, 4vw, 29px);
+      letter-spacing: -.8px;
+    }
+
+    .section-copy {
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+      margin-top: 21px;
+    }
+
+    .step-card {
+      padding: 19px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .step-index {
+      display: inline-block;
+      margin-bottom: 10px;
+      color: var(--accent-light);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .step-card h3 {
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .step-card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    details {
+      padding: 15px 17px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,.025);
+    }
+
+    summary {
+      color: #f4f4f5;
+      font-size: 13px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    details p {
+      padding-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .directory-card {
+      margin: 35px 0;
+      padding: clamp(18px, 4vw, 27px);
+      border: 1px solid rgba(245,158,11,.17);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(24,24,33,.9), rgba(13,13,20,.95));
+    }
+
+    .directory-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .directory-header h2 {
+      font-size: 18px;
+      letter-spacing: -.4px;
+    }
+
+    .directory-count {
+      padding: 5px 9px;
+      color: var(--accent-light);
+      border: 1px solid rgba(245,158,11,.2);
+      border-radius: 30px;
+      background: rgba(245,158,11,.07);
+      font-size: 10px;
+      font-weight: 850;
+    }
+
+    .directory-description {
+      margin-bottom: 15px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .directory-scroll {
+      max-height: 310px;
+      overflow-y: auto;
+      padding: 5px 7px 5px 0;
+      scrollbar-width: thin;
+      scrollbar-color: #80500e #171720;
+    }
+
+    .directory-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 8px;
+    }
+
+    .directory-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 10px 11px;
+      color: #c9c9d0;
+      border: 1px solid rgba(255,255,255,.065);
+      border-radius: 9px;
+      background: rgba(255,255,255,.025);
+      font-size: 11px;
+      overflow-wrap: anywhere;
+      transition: .2s;
+    }
+
+    .directory-link::before {
+      content: "↗";
+      flex: 0 0 auto;
+      color: var(--accent);
+      font-weight: 900;
+    }
+
+    .directory-link:hover {
+      color: var(--accent-light);
+      border-color: rgba(245,158,11,.35);
+      background: rgba(245,158,11,.06);
+    }
+
+    .footer {
+      margin-top: 30px;
+      padding: 24px 0 32px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      color: #777782;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .footer strong {
+      color: #d4d4d8;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(7px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 650px) {
+      .page-shell {
+        width: min(100% - 22px, 540px);
+      }
+
+      .topbar {
+        padding: 16px 0;
+      }
+
+      .brand {
+        font-size: 15px;
+      }
+
+      .top-label {
+        font-size: 10px;
+        padding: 6px 9px;
+      }
+
+      .hero {
+        padding: 46px 0 25px;
+      }
+
+      h1 {
+        letter-spacing: -1.5px;
+      }
+
+      .hero-description {
+        font-size: 13px;
+      }
+
+      .tool-card {
+        border-radius: 19px;
+      }
+
+      .settings-row {
+        grid-template-columns: 1fr;
+        gap: 11px;
+      }
+
+      .feature-grid,
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .feature-icon {
+        flex: 0 0 35px;
+        margin: 0;
+      }
+
+      .directory-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-heading h2 {
+        font-size: 17px;
+      }
+
+      .live-status {
+        font-size: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-shell">
+
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="Randomizer home">
+        <span class="brand-mark">✳</span>
+        <span>Random<span class="gradient-text">Forge</span></span>
+      </a>
+      <span class="top-label">FREE ONLINE UTILITY</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          Instant random selection
+        </div>
+
+        <h1 id="page-heading">
+          Universal <span class="gradient-text">Random Generator</span> & Decision Picker
+        </h1>
+
+        <p class="hero-description" id="page-intro">
+          Make random choices without complicated setup. Enter names, numbers,
+          teams or any list of options, choose how many results you need, and
+          generate a randomized selection instantly.
+        </p>
+      </section>
+
+      <section class="tool-section" aria-label="Random selection tool">
+        <div class="tool-card">
+
+          <div class="tool-heading">
+            <h2>Random Selection Engine</h2>
+            <div class="live-status"><span></span> Ready to generate</div>
+          </div>
+
+          <div class="input-group">
+            <label for="items-input">Enter Items (One Per Line)</label>
+            <textarea
+              id="items-input"
+              spellcheck="false"
+              placeholder="Enter your options here, one per line...&#10;&#10;Example:&#10;Option A&#10;Option B&#10;Option C&#10;Option D"
+              aria-describedby="items-hint"
+            ></textarea>
+            <div class="input-hint" id="items-hint">
+              <span>Each non-empty line becomes one selectable item.</span>
+              <span id="item-counter">0 items</span>
+            </div>
+          </div>
+
+          <div class="settings-row">
+            <div class="setting-box">
+              <label class="field-label" for="quantity-input">Quantity to Pick</label>
+              <input
+                id="quantity-input"
+                type="number"
+                min="1"
+                max="10000"
+                step="1"
+                value="1"
+                inputmode="numeric"
+              >
+              <p class="setting-note">Number of random results to generate.</p>
+            </div>
+
+            <div class="setting-box">
+              <label class="field-label" for="mode-select">Selection Mode</label>
+              <select
+                id="mode-select"
+                style="width:100%;height:46px;padding:0 11px;color:#f5f5f7;background:#101019;border:1px solid rgba(255,255,255,.11);border-radius:10px;outline:none;"
+              >
+                <option value="unique">No repeated results</option>
+                <option value="repeat">Allow repeated results</option>
+              </select>
+              <p class="setting-note">Choose whether an item can appear more than once.</p>
+            </div>
+          </div>
+
+          <div class="option-row">
+            <label class="check-option">
+              <input type="checkbox" id="sort-results">
+              Sort selected results alphabetically
+            </label>
+            <label class="check-option">
+              <input type="checkbox" id="remove-duplicates" checked>
+              Ignore duplicate input lines
+            </label>
+          </div>
+
+          <button class="primary-button" id="generate-button" type="button">
+            <span>✦</span>
+            Trigger Random Selection
+            <span>→</span>
+          </button>
+
+          <div class="error-message" id="error-message" role="alert"></div>
+
+          <section class="result-panel" aria-live="polite" aria-atomic="false">
+            <div class="result-top">
+              <span class="result-title">Your Random Results</span>
+              <span class="result-count" id="result-count">Waiting for selection</span>
+            </div>
+
+            <div class="result-output" id="result-output">
+              <p class="result-placeholder">
+                Your selected results will appear here after you trigger the generator.
+              </p>
+            </div>
+
+            <div class="result-actions" id="result-actions" hidden>
+              <button class="secondary-button" type="button" id="copy-button">Copy Results</button>
+              <button class="secondary-button" type="button" id="download-button">Download TXT</button>
+              <button class="secondary-button" type="button" id="clear-button">Clear Results</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="feature-grid" aria-label="Tool benefits">
+        <article class="feature">
+          <div class="feature-icon">⚡</div>
+          <div>
+            <h3>Instant Randomization</h3>
+            <p>Generate selections directly in your browser without waiting for a server response.</p>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature-icon">⌘</div>
+          <div>
+            <h3>Flexible Input</h3>
+            <p>Use names, teams, entries, numbers, ideas or any other line-separated list.</p>
+          </div>
+        </article>
+
+        <article class="feature">
+          <div class="feature-icon">◇</div>
+          <div>
+            <h3>Secure Random Source</h3>
+            <p>Uses the browser's cryptographic random number generator with unbiased range selection.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-title" id="guide-heading">How to Use the Random Generator</h2>
+        <p class="section-copy" id="guide-intro">
+          This free random selection utility helps you make unbiased selections
+          from a custom list. You can use it to choose giveaway winners, organize
+          gaming teams, shuffle entries, select names for classroom activities
+          or make everyday decisions.
+        </p>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <span class="step-index">STEP 01</span>
+            <h3>Add Your Options</h3>
+            <p>Type or paste your list into the input area. Put each name, entry or option on a separate line.</p>
+          </article>
+
+          <article class="step-card">
+            <span class="step-index">STEP 02</span>
+            <h3>Choose a Quantity</h3>
+            <p>Enter how many results you want. Select whether repeated results should be allowed.</p>
+          </article>
+
+          <article class="step-card">
+            <span class="step-index">STEP 03</span>
+            <h3>Generate and Copy</h3>
+            <p>Press the selection button to see your results. Copy them or download a text file.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+
+        <div class="faq-list">
+          <details>
+            <summary>How does the random selection tool work?</summary>
+            <p>The tool reads each non-empty line as an individual option and uses the browser's Web Crypto random number generator to select entries. Results are generated locally in your browser.</p>
+          </details>
+
+          <details>
+            <summary>Can I select multiple random names at once?</summary>
+            <p>Yes. Enter your list, set Quantity to Pick to the number of names you need, and trigger random selection. The unique selection mode prevents the same input entry from being selected twice.</p>
+          </details>
+
+          <details>
+            <summary>Can I use this tool to pick giveaway winners?</summary>
+            <p>Yes. Add eligible participant names or entry IDs, choose the number of winners and generate a selection. For important or regulated promotions, establish and publish fair eligibility and selection rules before running the draw.</p>
+          </details>
+
+          <details>
+            <summary>Does the randomizer allow duplicate results?</summary>
+            <p>Yes. Choose Allow repeated results to let an input item appear more than once. Choose No repeated results when each selected entry must be unique.</p>
+          </details>
+
+          <details>
+            <summary>Are my input items uploaded to a server?</summary>
+            <p>The selection logic in this page runs in your browser. The randomization code does not send your entered list to a server. Avoid entering confidential information into any website unless you have reviewed its privacy practices.</p>
+          </details>
+
+          <details>
+            <summary>Can I download my random results?</summary>
+            <p>Yes. After generating results, use the Download TXT button to save a plain-text file containing your selected entries.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="directory-card" aria-label="Random generator tools directory">
+        <div class="directory-header">
+          <h2>Explore Randomizer Tools</h2>
+          <span class="directory-count" id="directory-count">60 TOOLS</span>
+        </div>
+
+        <p class="directory-description">
+          Explore specialized random selection pages for gaming groups,
+          password-related lists, giveaways, classroom activities and
+          everyday decision-making.
+        </p>
+
+        <div class="directory-scroll">
+          <nav class="directory-grid" id="programmatic-directory" aria-label="Tool variations">
+            <!-- Programmatic links are generated from the keyword matrix below. -->
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p><strong>RandomForge</strong> — A free browser-based random selection utility.</p>
+      <p style="margin-top:6px;">Use random selections responsibly and verify the rules of any contest or draw.</p>
+    </footer>
+  </div>
+
+  <script>
+    "use strict";
+
+    /*
+      PROGRAMMATIC SEO MATRIX
+      6 core phrases × 10 niche targets = 60 internal URL variations.
+    */
+    const corePhrases = [
+      "random-team-generator-for",
+      "secure-password-maker-for",
+      "random-number-picker-for",
+      "list-shuffler-utility-for",
+      "random-name-selector-for",
+      "coin-flip-simulator-for"
+    ];
+
+    const nicheTargets = [
+      "gaming-squads",
+      "pubg-matches",
+      "free-fire-guilds",
+      "roblox-groups",
+      "password-security",
+      "giveaways",
+      "classroom-draws",
+      "tournament-brackets",
+      "crypto-keys",
+      "decision-making"
+    ];
+
+    const directory = document.getElementById("programmatic-directory");
+    const directoryCount = document.getElementById("directory-count");
+    const validSlugs = new Set();
+
+    function readableKeyword(slug) {
+      return slug
+        .split("-")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    }
+
+    function buildDirectory() {
+      const fragment = document.createDocumentFragment();
+      let total = 0;
+
+      corePhrases.forEach(core => {
+        nicheTargets.forEach(target => {
+          const slug = `${core}${target}`;
+          validSlugs.add(slug);
+
+          const link = document.createElement("a");
+          link.className = "directory-link";
+          link.href = `?p=${encodeURIComponent(slug)}`;
+          link.textContent = readableKeyword(slug);
+          fragment.appendChild(link);
+          total++;
+        });
+      });
+
+      directory.replaceChildren(fragment);
+      directoryCount.textContent = `${total} TOOLS`;
+    }
+
+    /*
+      DYNAMIC SEO ROUTING
+      The page title, meta description, H1 and introductory copy are
+      customized for each recognized ?p= keyword variation.
+    */
+    function initializeProgrammaticPage() {
+      const params = new URLSearchParams(window.location.search);
+      const requestedSlug = params.get("p");
+      const slug = requestedSlug && validSlugs.has(requestedSlug)
+        ? requestedSlug
+        : null;
+
+      const heading = document.getElementById("page-heading");
+      const intro = document.getElementById("page-intro");
+      const guideHeading = document.getElementById("guide-heading");
+      const guideIntro = document.getElementById("guide-intro");
+      const description = document.querySelector('meta[name="description"]');
+
+      if (!slug) {
+        document.title = "Universal Random Generator & Decision Picker";
+        heading.innerHTML = 'Universal <span class="gradient-text">Random Generator</span> & Decision Picker';
+
+        intro.textContent =
+          "Make random choices without complicated setup. Enter names, numbers, teams or any list of options, choose how many results you need, and generate a randomized selection instantly.";
+
+        description.setAttribute(
+          "content",
+          "Use this free random generator to pick names, shuffle lists, select winners, create teams and make decisions instantly."
+        );
+
+        guideHeading.textContent = "How to Use the Random Generator";
+        guideIntro.textContent =
+          "This free random selection utility helps you make unbiased selections from a custom list. You can use it to choose giveaway winners, organize gaming teams, shuffle entries, select names for classroom activities or make everyday decisions.";
+
+        return;
+      }
+
+      const keyword = readableKeyword(slug);
+      const lowerKeyword = keyword.toLowerCase();
+
+      document.title = `${keyword.toUpperCase()} - 100% Free Randomizer Tool`;
+
+      heading.innerHTML = "";
+      const headingText = document.createTextNode(keyword + " ");
+      const highlight = document.createElement("span");
+      highlight.className = "gradient-text";
+      highlight.textContent = "Randomizer Tool";
+      heading.append(headingText, highlight);
+
+      intro.textContent =
+        `Use this free ${lowerKeyword} tool to generate random selections quickly and easily. Add your options one per line, choose the quantity you need, and trigger the randomizer to get results instantly.`;
+
+      description.setAttribute(
+        "content",
+        `Try our free ${lowerKeyword} online tool. Enter your options, customize the number of results and generate randomized selections instantly. No installation required.`
+      );
+
+      guideHeading.textContent = `How to Use ${keyword}`;
+      guideIntro.textContent =
+        `The ${lowerKeyword} utility makes it easier to select and organize options from a custom list. Enter your available entries, set the number of results, choose your selection mode and run the generator.`;
+    }
+
+    /*
+      UNBIASED CRYPTOGRAPHIC RANDOM INTEGER
+      Rejection sampling avoids modulo bias when selecting an integer
+      from the inclusive range 0 through max.
+    */
+    function secureRandomInt(max) {
+      if (!Number.isSafeInteger(max) || max < 0 || max > 0xFFFFFFFF) {
+        throw new Error("The requested random range is not supported.");
+      }
+
+      if (!window.crypto || typeof window.crypto.getRandomValues !== "function") {
+        throw new Error("Secure random generation is unavailable in this browser. Please use an up-to-date browser with Web Crypto support.");
+      }
+
+      const range = max + 1;
+      const limit = Math.floor(0x100000000 / range) * range;
+      const buffer = new Uint32Array(1);
+
+      let value;
+      do {
+        window.crypto.getRandomValues(buffer);
+        value = buffer[0];
+      } while (value >= limit);
+
+      return value % range;
+    }
+
+    function secureShuffle(items) {
+      const shuffled = items.slice();
+
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = secureRandomInt(i);
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      return shuffled;
+    }
+
+    const itemsInput = document.getElementById("items-input");
+    const quantityInput = document.getElementById("quantity-input");
+    const modeSelect = document.getElementById("mode-select");
+    const removeDuplicates = document.getElementById("remove-duplicates");
+    const sortResults = document.getElementById("sort-results");
+    const generateButton = document.getElementById("generate-button");
+    const itemCounter = document.getElementById("item-counter");
+    const errorMessage = document.getElementById("error-message");
+    const resultOutput = document.getElementById("result-output");
+    const resultCount = document.getElementById("result-count");
+    const resultActions = document.getElementById("result-actions");
+
+    let latestResults = [];
+
+    function parseItems() {
+      let items = itemsInput.value
+        .split(/\r?\n/)
+        .map(item => item.trim())
+        .filter(item => item.length > 0);
+
+      if (removeDuplicates.checked) {
+        const seen = new Set();
+        items = items.filter(item => {
+          const normalized = item.toLocaleLowerCase();
+          if (seen.has(normalized)) return false;
+          seen.add(normalized);
+          return true;
+        });
+      }
+
+      return items;
+    }
+
+    function updateItemCounter() {
+      const count = parseItems().length;
+      itemCounter.textContent = `${count} ${count === 1 ? "item" : "items"}`;
+    }
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.classList.add("visible");
+    }
+
+    function clearError() {
+      errorMessage.textContent = "";
+      errorMessage.classList.remove("visible");
+    }
+
+    function renderResults(results) {
+      resultOutput.replaceChildren();
+
+      if (!results.length) {
+        const placeholder = document.createElement("p");
+        placeholder.className = "result-placeholder";
+        placeholder.textContent = "No results have been generated yet.";
+        resultOutput.appendChild(placeholder);
+        resultActions.hidden = true;
+        return;
+      }
+
+      const fragment = document.createDocumentFragment();
+
+      results.forEach((value, index) => {
+        const row = document.createElement("div");
+        row.className = "result-item";
+
+        const number = document.createElement("span");
+        number.className = "result-number";
+        number.textContent = String(index + 1);
+
+        const text = document.createElement("span");
+        text.className = "result-value";
+        text.textContent = value;
+
+        row.append(number, text);
+        fragment.appendChild(row);
+      });
+
+      resultOutput.appendChild(fragment);
+      resultActions.hidden = false;
+    }
+
+    function generateSelection() {
+      clearError();
+
+      try {
+        const items = parseItems();
+        const quantity = Number(quantityInput.value);
+        const allowRepeats = modeSelect.value === "repeat";
+
+        if (!items.length) {
+          showError("Please enter at least one item before generating results.");
+          return;
+        }
+
+        if (!Number.isSafeInteger(quantity) || quantity < 1 || quantity > 10000) {
+          showError("Enter a whole number between 1 and 10,000 for Quantity to Pick.");
+          return;
+        }
+
+        if (!allowRepeats && quantity > items.length) {
+          showError(`You entered ${items.length} unique items. Reduce the quantity to ${items.length} or fewer, or allow repeated results.`);
+          return;
+        }
+
+        let results;
+
+        if (allowRepeats) {
+          results = Array.from({ length: quantity }, () => {
+            return items[secureRandomInt(items.length - 1)];
+          });
+        } else {
+          results = secureShuffle(items).slice(0, quantity);
+        }
+
+        if (sortResults.checked) {
+          results.sort((a, b) => a.localeCompare(b));
+        }
+
+        latestResults = results.slice();
+        renderResults(results);
+
+        resultCount.textContent =
+          `${results.length} ${results.length === 1 ? "result" : "results"} selected`;
+
+        resultOutput.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest"
+        });
+
+      } catch (error) {
+        showError(error.message || "Something went wrong. Please try again.");
+      }
+    }
+
+    async function copyResults() {
+      if (!latestResults.length) return;
+
+      const text = latestResults.join("\n");
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const temporary = document.createElement("textarea");
+          temporary.value = text;
+          temporary.style.position = "fixed";
+          temporary.style.opacity = "0";
+          document.body.appendChild(temporary);
+          temporary.select();
+
+          const copied = document.execCommand("copy");
+          temporary.remove();
+
+          if (!copied) throw new Error("Copy operation was not successful.");
+        }
+
+        document.getElementById("copy-button").textContent = "Copied!";
+        setTimeout(() => {
+          document.getElementById("copy-button").textContent = "Copy Results";
+        }, 1600);
+
+      } catch {
+        showError("Unable to copy automatically. Please select and copy the results manually.");
+      }
+    }
+
+    function downloadResults() {
+      if (!latestResults.length) return;
+
+      const blob = new Blob(
+        [latestResults.join("\n")],
+        { type: "text/plain;charset=utf-8" }
+      );
+
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+
+      anchor.href = url;
+      anchor.download = "random-selection-results.txt";
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+
+      URL.revokeObjectURL(url);
+    }
+
+    function clearResults() {
+      latestResults = [];
+      renderResults([]);
+      resultCount.textContent = "Waiting for selection";
+      clearError();
+    }
+
+    itemsInput.addEventListener("input", updateItemCounter);
+    removeDuplicates.addEventListener("change", updateItemCounter);
+    generateButton.addEventListener("click", generateSelection);
+
+    document.getElementById("copy-button")
+      .addEventListener("click", copyResults);
+
+    document.getElementById("download-button")
+      .addEventListener("click", downloadResults);
+
+    document.getElementById("clear-button")
+      .addEventListener("click", clearResults);
+
+    /*
+      INITIALIZE AFTER THE PAGE LOADS
+    */
+    window.onload = function () {
+      buildDirectory();
+      initializeProgrammaticPage();
+      updateItemCounter();
+    };
+  </script>
+</body>
+</html>
